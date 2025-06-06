@@ -4,12 +4,14 @@ import { getTasks, createTask, updateTask, deleteTask } from '../services/task.s
 import TaskCard from '../components/TaskCard';
 import TaskModal from '../components/TaskModal';
 import TaskMetrics from '../components/TaskMetrics';
+import AlertMessage from '../components/AlertMessage';
 
 function Home() {
   const [status, setStatus] = useState('');
   const [priority, setPriority] = useState('');
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
@@ -40,6 +42,7 @@ function Home() {
       await loadTasks();
     } catch (error) {
       console.error('Error al guardar tarea:', error.message);
+      setErrorMessage(error.message || 'Error al guardar la tarea. Intenta de nuevo.');
     }
   };
 
@@ -52,6 +55,7 @@ function Home() {
       await loadTasks();
     } catch (error) {
       console.error('Error al eliminar tarea:', error.message);
+      setErrorMessage(error.message || 'Error al guardar la tarea');
     }
   };
 
@@ -62,6 +66,7 @@ function Home() {
       setTasks(data);
     } catch (error) {
       console.error('Error al cargar tareas:', error.message);
+      setErrorMessage(error.message || 'Error al cargar las tareas.');
     } finally {
       setLoading(false);
     }
@@ -73,6 +78,10 @@ function Home() {
 
   return (
     <div className="p-4 sm:p-6 md:p-10">
+      {errorMessage && (
+        <AlertMessage message={errorMessage} onClose={() => setErrorMessage('')} />
+      )}
+
       <TaskModal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -146,9 +155,8 @@ function Home() {
         )}
       </div>
 
-
       <div className="mt-6">
-        <TaskMetrics tasks={tasks} />
+        <TaskMetrics />
       </div>
     </div>
   );
