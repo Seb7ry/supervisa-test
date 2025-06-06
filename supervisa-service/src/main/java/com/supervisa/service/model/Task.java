@@ -30,7 +30,7 @@ public class Task {
     @Size(max = 150, message = "El título no debe tener más de 150 caracteres.")
     private String title;
 
-    @Size(min = 500, max = 1000, message = "La descripción no debe superar los 1000 caracteres.")
+    @Size(max = 1000, message = "La descripción no debe superar los 1000 caracteres.")
     private String description;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
