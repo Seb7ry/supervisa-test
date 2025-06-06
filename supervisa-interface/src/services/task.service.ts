@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080/tasks'; 
+const API_URL = 'http://localhost:8080/tasks';
 
 export const getTasks = async (status, priority) => {
     const params = new URLSearchParams();
