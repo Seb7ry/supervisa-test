@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { FiPlusCircle } from 'react-icons/fi';
+import { FiPhone, FiPlusCircle } from 'react-icons/fi';
 import { getTasks, createTask, updateTask, deleteTask } from '../services/task.service';
 import TaskCard from '../components/TaskCard';
 import TaskModal from '../components/TaskModal';
 import TaskMetrics from '../components/TaskMetrics';
 import AlertMessage from '../components/AlertMessage';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [status, setStatus] = useState('');
@@ -12,7 +13,7 @@ function Home() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
 
@@ -30,6 +31,10 @@ function Home() {
     setTaskToEdit(null);
     setIsModalOpen(false);
   };
+
+  const handleClickPhone = () => {
+    navigate('/phone');
+  }
 
   const handleSave = async (taskData) => {
     try {
@@ -99,6 +104,13 @@ function Home() {
           </p>
         </div>
 
+        <button
+          onClick={handleClickPhone}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg shadow transition-all"
+        >
+          <FiPhone className="text-lg" />
+          Teléfonos
+        </button>
         <button
           onClick={openCreateModal}
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg shadow transition-all"
