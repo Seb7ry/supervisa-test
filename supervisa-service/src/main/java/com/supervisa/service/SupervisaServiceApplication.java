@@ -9,5 +9,4 @@ public class SupervisaServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(SupervisaServiceApplication.class, args);
     }
-
 }
